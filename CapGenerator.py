@@ -40,14 +40,17 @@ P_CURVE_PATH = NOK_PATH + '/P_CURVE'
 #[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 #[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
-'''
-Input : 
-    width = The width of the image
-    height = the height of the image
-Output : 
-    array = a OK array generated
-'''
 def createOkCap(width, height):
+    """
+    Create a single array of a Ok cap
+
+    Parameters:
+        width (int) : The width in pixel of the image
+        height (int) : The height in pixel of the image
+
+    Returns:
+        array[int] : the array
+    """
     array = np.zeros((height,width))
     for i in range(width) :
         for j in range(height) :
@@ -73,6 +76,16 @@ Output :
     array = a Nok array generated with a problem of colors
 '''
 def createNokCapColor(width, height) : 
+    """
+    Create a single array of a P_COLOR cap.
+
+    Parameters:
+        width (int) : The width in pixel of the image
+        height (int) : The height in pixel of the image
+
+    Returns:
+        array[int] : the array
+    """
     chance = 0.025
     nbr = 0
 
@@ -92,7 +105,17 @@ def createNokCapColor(width, height) :
         array = createNokCapColor(width, height)
     return array
 
-def createNokCapMatter(width, height) : 
+def createNokCapMatter(width, height) :
+    """
+    Create a single array of a P_MATTER cap.
+
+    Parameters:
+        width (int) : The width in pixel of the image
+        height (int) : The height in pixel of the image
+
+    Returns:
+        array[int] : the array
+    """
     chance = 0.001
     nbr = 0
 
@@ -109,7 +132,17 @@ def createNokCapMatter(width, height) :
         array = createNokCapMatter(width, height)
     return array
 
-def createNokCapSize(width, height) : 
+def createNokCapSize(width, height) :
+    """
+    Create a single array of a P_SIZE cap.
+
+    Parameters:
+        width (int) : The width in pixel of the image
+        height (int) : The height in pixel of the image
+
+    Returns:
+        array[int] : the array
+    """
     chance = 0.5
     array = np.zeros((height,width))
     if np.random.rand() < chance :
@@ -148,6 +181,16 @@ def createNokCapSize(width, height) :
     return array
 
 def createNokCapCurve(width, height) : 
+    """
+    Create a single array of a P_CURVE cap.
+
+    Parameters:
+        width (int) : The width in pixel of the image
+        height (int) : The height in pixel of the image
+
+    Returns:
+        array[int] : the array
+    """
     rand = np.random.rand()
     array = np.zeros((height,width))
 
@@ -220,28 +263,36 @@ def createNokCapCurve(width, height) :
                         array[i][j] = 1
     return array
 
-'''
-Input : 
-    color = list of colors
-Output : 
-    A random colors pick from the array color
-'''
-def randomColorPick(color) :
-    rand = np.int8(np.floor(np.random.rand() * len(color)))
+def randomColorPick() :
+    """
+    Select a random position in the COLOR global array
+
+    Parameters:
+        None
+
+    Returns:
+        The color(hex value) in the COLOR global array
+    """
+    rand = np.int8(np.floor(np.random.rand() * len(COLOR)))
     return COLOR[rand]
 
-'''
-Input : 
-    array = the array generated
-    ok = boolean indicating if its a conform cap or not
-Output : 
-    An image in one of the folders
-'''
 def createImage(array, ok, num, type) :
-    rndColor = randomColorPick(COLOR)
-    rndColor2 = randomColorPick(COLOR)
+    """
+    Select a random position in the COLOR global array
+
+    Parameters:
+        array (array) : The array of 0 and 1 to create the image from
+        ok (boolean) : If the array is a Ok cap.
+        num (int) : The number of the generated image
+        type (string) : The type of N_OK cap, None if its a Ok cap
+
+    Returns:
+        None
+    """
+    rndColor = randomColorPick()
+    rndColor2 = randomColorPick()
     while(rndColor == rndColor2) :
-        rndColor2 = randomColorPick(COLOR)
+        rndColor2 = randomColorPick()
     
     colors = ['white', rndColor, rndColor2]
     cmap = mcolors.ListedColormap(colors)
@@ -274,7 +325,18 @@ def createImage(array, ok, num, type) :
         elif GENERATE_IMAGE == False :
             plt.show()
 
-def main() :
+def main(generateImage=None, ok=None, nok=None, color=None) :
+    global GENERATE_IMAGE, OK, NOK, COLOR
+
+    if generateImage is not None :
+        GENERATE_IMAGE = generateImage
+    if ok is not None :
+        OK = ok
+    if nok is not None :
+        NOK = nok
+    if color is not None :
+        COLOR = color
+
     if not os.path.exists(OK_PATH) :
         os.makedirs(OK_PATH)
 

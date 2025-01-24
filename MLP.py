@@ -3,11 +3,12 @@ import ImageCapAnalyser as Analyser
 import sys
 
 def main():
-    Generator.main()
-    array_x, array_y = Analyser.main()
-    print(array_x)
-    print("============")
-    print(array_y)
+    Generator.main(generateImage=True,ok=4,nok=4,color=None)
+
+    array_2x, array_2y = Analyser.main(2)
+
+    array_5x, array_5y = Analyser.main(5)
+
 
 if __name__ ==  "__main__" :
     sys.exit(main())
