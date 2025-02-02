@@ -21,5 +21,5 @@
 
 ## Documentation
 
-https://scikit-learn.org/dev/modules/generated/sklearn.neural_network.MLPClassifier.html
-https://dash.plotly.com/
+- [scikit-learn MLPClassifier](https://scikit-learn.org/dev/modules/generated/sklearn.neural_network.MLPClassifier.html)
+- [plotly dashboard](https://dash.plotly.com/)
