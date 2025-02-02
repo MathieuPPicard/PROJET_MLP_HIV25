@@ -325,6 +325,16 @@ def createImage(array, ok, num, type) :
         elif GENERATE_IMAGE == False :
             plt.show()
 
+def recalculateSubNumber() :
+    """
+    Recalculate the sub number of image for each NOK problems.
+    """
+    global P_CURVE, P_COLOR, P_MATTER, P_SIZE, NOK
+    P_COLOR = np.int8(np.ceil(NOK/4))
+    P_MATTER = np.int8(np.ceil(NOK/4))
+    P_SIZE = np.int8(np.ceil(NOK/4))
+    P_CURVE = np.int8(np.ceil(NOK/4))
+
 def main(generateImage=None, ok=None, nok=None, color=None) :
     global GENERATE_IMAGE, OK, NOK, COLOR
 
@@ -334,6 +344,8 @@ def main(generateImage=None, ok=None, nok=None, color=None) :
         OK = ok
     if nok is not None :
         NOK = nok
+        recalculateSubNumber()
+
     if color is not None :
         COLOR = color
 
