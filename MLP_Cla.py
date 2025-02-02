@@ -6,43 +6,43 @@ import numpy as np
 from PIL import Image
 import os
 
-# Define a function to load images and their labels
+# Function to load images and labels for cap detection
 def load_images(image_folder):
     images = []
     labels = []
     for file in os.listdir(image_folder):
-        if file.endswith(".jpg") or file.endswith(".png"):  # Assuming the images are in jpg or png format
+        if file.endswith(".jpg") or file.endswith(".png"):  # Image format
             image_path = os.path.join(image_folder, file)
-            image = Image.open(image_path).convert("L")  # Convert to grayscale (optional)
-            image = image.resize((11, 11))  # Resize to 11x11 pixels
-            image_array = np.array(image).flatten()  # Flatten to 1D array
+            image = Image.open(image_path).convert("L")  # Convert to grayscale
+            image = image.resize((11, 11))  # Resize images to standard size
+            image_array = np.array(image).flatten()  # Flatten image into 1D array
             images.append(image_array)
             
-            # Label as 0 for 'NOk_Image_*' (not okay) and 1 for 'Ok_Image_*' (okay)
-            label = 1 if "Ok_Image" in file else 0  # Label 1 for 'Ok_Image_*', 0 for 'NOk_Image_*'
+            # Assign label based on file name (OK or NOT OK)
+            label = 1 if "Ok_Image" in file else 0  # OK = 1, NOT OK = 0
             labels.append(label)
     
     return np.array(images), np.array(labels)
 
-# Load the data (replace with the path to your image folder containing cap images)
+# Load images and labels from your 'ImagesMLP' folder
 X, y = load_images('ImagesMLP')
 
-# Step 1: Preprocessing the data (Scaling features)
+# Step 1: Preprocess the data (scaling)
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# Step 2: Splitting the dataset into training and test sets
+# Step 2: Split into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
-# Step 3: Choose the model (MLPClassifier for classification)
+# Step 3: Create MLPClassifier model
 mlp = MLPClassifier(hidden_layer_sizes=(100,), max_iter=500, activation='relu', solver='adam', random_state=42)
 
-# Step 4: Training the model
+# Step 4: Train the model
 mlp.fit(X_train, y_train)
 
-# Step 5: Making predictions
+# Step 5: Predict with the trained model
 y_pred = mlp.predict(X_test)
 
-# Step 6: Evaluating the model
+# Step 6: Evaluate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy * 100:.2f}%")
