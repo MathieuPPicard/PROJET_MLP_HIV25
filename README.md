@@ -11,9 +11,9 @@
 
 ## ToDo
 - Add parameters to important function [X]
-- MLP_Classifier classe = 2 : OK , NOK
-- MLP_Classifier classe =  5 : OK, P_COLOR, P_MATTER, P_CURVE, P_SIZE
-    -Make functions in ImageCapAnalyser (ei. imageToArray5) [X]
+- MLP_Classifier classe = 2 : OK , NOK [X]
+- MLP_Classifier classe =  5 : OK, P_COLOR, P_MATTER, P_CURVE, P_SIZE [X]
+    - Make functions in ImageCapAnalyser (ei. imageToArray5) [X]
 - Data collection
     - Data of the performance(result and time)
         - Depend of the number of data, number of hidden layers, number of neurons by hidden layers
