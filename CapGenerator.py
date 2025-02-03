@@ -324,6 +324,7 @@ def createImage(array, ok, num, type) :
                 plt.savefig(f'{P_SIZE_PATH}/NOk_image_{num}.png',bbox_inches='tight',pad_inches=0)
         elif GENERATE_IMAGE == False :
             plt.show()
+    plt.close()
 
 def recalculateSubNumber() :
     """
