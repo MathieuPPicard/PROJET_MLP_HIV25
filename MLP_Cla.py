@@ -2,8 +2,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
+import ImageCapAnalyser as Analyser
 import numpy as np 
 import sys
+import time
 
 np.set_printoptions(threshold=np.inf) 
 
@@ -13,7 +15,6 @@ def transformArray(array) :
 
 def train(x_array, y_array, layer_size) :
 
-    
     # Step 1: Preprocess the data (flattening)
     x_array = transformArray(np.array(x_array))
     y_array = np.array(y_array)
@@ -43,14 +44,30 @@ def train(x_array, y_array, layer_size) :
     
     # Step 7: Evaluate
     accuracy = accuracy_score(y_test, y_pred)
-    #print(f"Accuracy: {accuracy * 100:.2f}%")
 
-    train_accuracy = mlp.score(X_train, y_train)
-    test_accuracy = mlp.score(X_test, y_test)
-    print(f"Training Accuracy: {train_accuracy * 100:.2f}%")
-    print(f"Testing Accuracy: {test_accuracy * 100:.2f}%")
+    # Step 8 : Time the model
+    test_time = test(mlp,scaler)
 
-    return accuracy
+    return accuracy , test_time
+
+def test(mlp, scaler) :
+    x_array, y_array = Analyser.analyseTest()
+
+    # Step 1: Preprocess the test data (flattening)
+    x_array = transformArray(np.array(x_array))
+    y_array = np.array(y_array)
+
+    # Step 2: Scale
+    x_array = scaler.transform(x_array)
+
+    # Step 3: make the mlp predict 
+    start = time.perf_counter()
+    result = mlp.predict(x_array)
+    end = time.perf_counter()
+    c_time = (end - start)
+    print(f"Prediction time: {c_time:.4f} seconds")
+    print("Predictions:", result)
+    return c_time
 
 def main(x_array, y_array ) :
     train(x_array, y_array,(220,))
