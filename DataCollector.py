@@ -57,17 +57,17 @@ def graphicx3():
         ax1.text(row['number_neurons'], row['average'], str(i), fontsize=9, ha='right')
     
     # Plot 2: average vs. computation_time
-    ax2.scatter(df['computation_time'], df['average'], color='r')
-    ax2.set_title('Average vs. Computation Time')
-    ax2.set_xlabel('Computation Time')
+    ax2.scatter(df['average_test_time'], df['average'], color='r')
+    ax2.set_title('Average vs. test time')
+    ax2.set_xlabel('Test time')
     ax2.set_ylabel('Average')
     
     # Label each point with its line number
     for i, row in df.iterrows():
-        ax2.text(row['computation_time'], row['average'], str(i), fontsize=9, ha='right')
+        ax2.text(row['average_test_time'], row['average'], str(i), fontsize=9, ha='right')
 
         # Plot 3: average vs. number_image
-    ax3.scatter(df['number_image'], df['average'], color='r')
+    ax3.scatter(df['number_image'], df['average'], color='g')
     ax3.set_title('Average vs. number of image')
     ax3.set_xlabel('number image')
     ax3.set_ylabel('Average')

@@ -74,9 +74,9 @@ def trainModel(n, n_ok=25, n_nok=100, layer_size=(220,), classes=2) :
     return average, nRange, average_test_time
 
 def main():
-    iterate(num_max_image=300, classes=2, num_model_training=20)
+    #iterate(num_max_image=400, classes=2, num_model_training=20)
     #Collector.graphic()
-    #Collector.graphicx3()
+    Collector.graphicx3()
     #Collector.deleteData()
 
 def deleteImageFolder() :
